@@ -1,0 +1,132 @@
+<h3>Filter Provider </h3>
+<div class="container-fluid">
+    <div class="row">
+        <form #filterProviderForm= "ngForm" (ngSubmit)="filterProvider(filterProviderForm)" >
+        <div class="col-md-12">
+            <div class="row"> 
+                <div class="col-md-2">
+                    <label class="invert" for="State">State</label>
+					<select name="state" ngModel class="form-control dropdown">
+						<option value="" disabled class="dropdown-menu">Select a State</option>
+						<option *ngFor="let state of states" [ngValue]="state.name" class="dropdown-item">
+						{{ state.name }}
+						</option>
+					</select>
+                </div>
+                <div class="col-md-2">
+                    <label class="invert" for="max_discharges">Max Discharges</label>
+					<input type="text" name="max_discharges" ngModel required minlength="4" #max_discharges="ngModel" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <label class="invert" for="min_discharges">Min Discharges</label>
+					<input type="text" name="min_discharges" ngModel required #min_discharges="ngModel" class="form-control">
+				</div>
+                <div class="col-md-2">
+                    <label class="invert" for="max_average_covered_charges">Max Avg Converage</label>
+					<input type="text" name="max_average_covered_charges" ngModel required #max_average_covered_charges="ngModel" class="form-control">
+				</div>
+                <div class="col-md-2">
+                    <label class="invert" for="min_average_covered_charges">Minx Avg Converage</label>
+					<input type="text" name="min_average_covered_charges" ngModel required #min_average_covered_charges="ngModel" class="form-control">
+				</div>
+                <div class="col-md-2">
+                    <label class="invert" for="min_average_medicare_payments">Min Avg Medicare</label>
+					<input type="text" name="min_average_medicare_payments" ngModel required #min_average_medicare_payments="ngModel" class="form-control">
+				</div>
+                <div class="col-md-2 ">
+                    <label class="invert" for="max_average_medicare_payments">Max Avg Medicare</label>
+					<input type="text" name="max_average_medicare_payments" ngModel required #max_average_medicare_payments="ngModel" class="form-control">
+                </div>
+			</div> 
+			<div class="row">
+				<div class='optionList' >
+					<ul *ngIf ="optionList">
+						<li *ngFor="let n of columnOptions"> 
+							<input type="checkbox" [(ngModel)]="n.selected" [ngModelOptions]="{standalone: true}"/> {{n.name}}
+						</li>
+					</ul>
+				</div>
+			</div> 
+            <div class="row">
+                <div class="col-md-12"> 
+                    <div class="form-group">
+                        <button class="btn pull-right" type="submit">Search
+                        <i class="fa fa-search"></i>
+						</button> 
+						<button class="btn pull-left" type="button" (click)='toggleOption()'>Options
+                        <i class="fa fa-search"></i>
+                        </button> 
+					</div>                 
+                </div>
+            </div>                       
+        </div>
+        </form>               
+    </div>
+</div>
+<br/>
+<div *ngIf="filterProviderForm.submitted">
+    <div *ngIf="filteredListOfProvider; else loading">
+	  <table class="table table-responsive">
+		  <thead >
+		  	<tr>
+				<th *ngIf="checkItem('DRDefinition')">DRDefinition</th> 
+				<th *ngIf="checkItem('ProviderId')">ProviderId</th>
+				<th *ngIf="checkItem('ProviderName')">Provider Name</th>
+				<th *ngIf="checkItem('ProviderStreetAddress')">Provider Street Address</th>
+				<th *ngIf="checkItem('ProviderCity')">Provider City</th>
+				<th *ngIf="checkItem('ProviderState')">Provider State</th>
+				<th *ngIf="checkItem('ProviderZipCode')">Provider Zip</th>
+				<th *ngIf="checkItem('HospitalReferralRegionDescription')">Hospital Referral Region Description</th>
+				<th *ngIf="checkItem('TotalDischarges')">Total Discharges</th>
+				<th *ngIf="checkItem('AverageCoveredCharges')">Average Covered Charges</th>
+				<th *ngIf="checkItem('AverageTotalPayments')">Average Total Payments</th>
+				<th *ngIf="checkItem('AverageMedicarePayments')">Average MedicarePayments</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr *ngFor="let pv of pagedItems" >
+				<td *ngIf="pv.DRDefinition">{{pv.DRDefinition}}</td> 
+				<td *ngIf="pv.ProviderId">{{pv.ProviderId}}</td> 
+				<td *ngIf="pv.ProviderName">{{pv.ProviderName}}</td> 
+				<td *ngIf="pv.ProviderStreetAddress">{{pv.ProviderStreetAddress}}</td>
+				<td *ngIf="pv.ProviderCity">{{pv.ProviderCity}}</td>
+				<td *ngIf="pv.ProviderState">{{pv.ProviderState}}</td>
+				<td *ngIf="pv.ProviderZipCode">{{pv.ProviderZipCode}}</td>
+				<td *ngIf="pv.HospitalReferralRegionDescription">{{pv.HospitalReferralRegionDescription}}</td>
+				<td *ngIf="pv.TotalDischarges">{{pv.TotalDischarges}}</td>
+				<td *ngIf="pv.AverageCoveredCharges">{{pv.AverageCoveredCharges}}</td>
+				<td *ngIf="pv.AverageTotalPayments">{{pv.AverageTotalPayments}}</td>
+				<td *ngIf="pv.AverageMedicarePayments">{{pv.AverageMedicarePayments}}</td>
+			</tr>
+		  </tbody>
+		</table>		
+		<div class="pagination">
+			<!-- pager -->
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(1)">First</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.totalPages)">Last</a>
+                </li>
+            </ul>
+		</div>	
+    </div>   
+    <ng-template #loading>
+	    <div *ngIf="dataAvailableAfterFilter; else notAvailable">
+	       Loading data...
+	    </div>   
+		<ng-template #notAvailable> Data not Aavailable. </ng-template>   
+	</ng-template>   
+</div>
+
+<div *ngIf="errorMessage" [ngClass] = "'error'"> {{errorMessage}} </div>
