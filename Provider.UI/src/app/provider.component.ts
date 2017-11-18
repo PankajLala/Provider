@@ -16,6 +16,7 @@ export class ProviderComponent implements OnInit {
    filteredListOfProvider: Provider[];
    errorMessage: String;
    dataAvailableAfterFilter;
+   submitted = false;
    states = [ 
                 {name:'UT'},
                 {name:'NC'},
@@ -99,25 +100,29 @@ export class ProviderComponent implements OnInit {
                         min_discharges: string, max_average_covered_charges: string,
                         min_average_covered_charges: string, min_average_medicare_payments: string,
                         max_average_medicare_payments: string, columns: string) {
-        this.dataAvailableAfterFilter= true;
-		    this.filteredListOfProvider = null;
-        this.providerService.getProviderAfterFilter(state, max_discharges,
+            this.dataAvailableAfterFilter= true;
+            this.filteredListOfProvider = null;
+            this.submitted = !this.submitted;
+            this.providerService.getProviderAfterFilter(state, max_discharges,
                         min_discharges, max_average_covered_charges,
                         min_average_covered_charges, min_average_medicare_payments,
                         max_average_medicare_payments, columns)
 		  .subscribe(
             data => {  
 				    if(data.length > 0) {
-              this.filteredListOfProvider = data; 
-              this.errorMessage='';
-              this.setPage(1);
-					} else {
-					  this.dataAvailableAfterFilter= false; 
-					}	
-			    },
-                error =>  {
-                    this.errorMessage = <any>error;
-                }
+                        this.filteredListOfProvider = data; 
+                        this.errorMessage='';
+                        this.submitted = !this.submitted;
+                        this.setPage(1);
+                                } else {
+                                this.dataAvailableAfterFilter= false; 
+                                }	
+			        },
+            error =>  {
+                this.errorMessage = <any>error;
+                this.submitted = !this.submitted;
+            }
+               
 		   );    
    }
 
