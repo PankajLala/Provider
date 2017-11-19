@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ProviderService } from './provider.service';
-import { Provider } from './provider';
 import * as _ from 'lodash';
-import { PagerService } from './pagerservice';
+
+import { Provider } from '../../model/provider';
+import { PagerService } from '../../services/pagerservice';
+import { ProviderService } from '../../services/provider.service';
 
 @Component({
    selector: 'app-provider',
@@ -116,6 +117,7 @@ export class ProviderComponent implements OnInit {
                         this.setPage(1);
                                 } else {
                                 this.dataAvailableAfterFilter= false; 
+                                 this.submitted = !this.submitted;
                                 }	
 			        },
             error =>  {

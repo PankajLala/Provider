@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
-
-import { Provider } from './provider';
+import { BaseService } from './base.service';
+import { Provider } from '../model/provider';
 
 @Injectable()
-export class ProviderService {
-    url = environment.apiUrl;
-    
-    
-	constructor(private http:Http) { }
+export class ProviderService extends BaseService {
+        
+    private path = 'api/provider';
+	constructor(private http:Http) { 
+            super();
+    }
 
     getProviderAfterFilter(state: string, max_discharges: string,
                         min_discharges: string, max_average_covered_charges: string,
                         min_average_covered_charges: string, min_average_medicare_payments: string,
                         max_average_medicare_payments: string, columns: string): Observable<Provider[]> {
-		let myHeaders = new Headers();
-		myHeaders.set('Content-Type', 'application/json');   
+        const url = this.getApiUrl() + this.path;
+        let myHeaders = new Headers();
+        
+        myHeaders.append('Authorization', `bearer ${localStorage.getItem('access_token')}`);   
 		let myParams = new URLSearchParams();
             myParams.set('state', state);
             myParams.set('max_discharges', max_discharges);
@@ -28,15 +30,12 @@ export class ProviderService {
             myParams.set('max_average_medicare_payments', max_average_medicare_payments);		
             myParams.set('columns', columns);	
         let options = new RequestOptions({ headers: myHeaders, params: myParams });
-        return this.http.get(this.url, options)
+        return this.http.get(url, options)
 		        .map(this.extractData)
 		        .catch(this.handleError);
     }
 	private extractData(res: Response) {
 		return res.json();
     }
-    private handleError (error: Response | any) {
-		console.error(error.message || error);
-		return Observable.throw(error.message || error);
-    }
+
 }
