@@ -49,37 +49,11 @@
 }
 /*login screen end*/
 
-@media only screen and (max-width: 767px) {
-    
-    /*login screen start*/
-    
-    .login-background{     
-        background-image:none;
-        height:400px;
-        
-    }
-    .btn-login{
-        margin-left:0;
-        width:100%;
-        margin-top:32px;
-    }
-    .username-textbox-responsive{
-        margin-top: 50px;
-    }
-    .label-welcome-login{
-        font-size: 18px;
-    }
-    .login-textbox{
-        font-size: 14px;
-    }
-    
-    /*login screen start*/
-}
 
 @media only screen and (min-width: 1200px){
     .btn-login{
-        margin-left:-32px;
-        width:60%;
+        margin-left:6px;
+        width:82%;
         margin-top:32px;
     }
     .username-textbox-responsive{
@@ -95,36 +69,6 @@
         margin: 0 auto;
         margin-top: 15px;
         width: 80%;
-    }
-
-}
-
-@media only screen and (min-width: 500px) and (max-width:767px){
-    .btn-login{
-        margin-left:-32px;
-        width:60%;
-        margin-top:32px;
-    }
-    .username-textbox-responsive{
-       margin: 0 auto;
-       margin-top: 50px;
-       width: 70%;
-
-    }
-    .password-textbox-responsive{
-        margin: 0 auto;
-        margin-top: 15px;
-        width: 70%;
-    }
-    .error-message {
-        margin: 0 auto;
-        width: 70%;
-    }
-    .btn-login{
-        margin: 0 auto;
-        width:70%;
-        margin-top:32px;
-        float: none !important;
     }
 
 }
