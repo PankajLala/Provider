@@ -23,11 +23,10 @@ namespace Provider
                 defaults: new { id = RouteParameter.Optional }
             );
 
+
             config.Formatters.JsonFormatter.SupportedMediaTypes
             .Add(new MediaTypeHeaderValue("text/html"));
 
-            var cors = new EnableCorsAttribute("*", "*", "*");
-            config.EnableCors(cors);
         }
     }
 }
