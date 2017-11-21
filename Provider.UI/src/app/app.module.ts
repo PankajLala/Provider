@@ -7,7 +7,6 @@ import { AuthGuard } from './auth.guard';
 import { UserService } from './services/user.service';
 import { ProviderComponent }  from './components/provider/provider.component';
 import { ProviderService } from './services/provider.service';
-import { PagerService } from './services/pagerservice';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { appRouterModule } from './app.routes';
 
@@ -25,7 +24,6 @@ import { appRouterModule } from './app.routes';
   ],
   providers: [
       ProviderService,
-      PagerService,
       AuthGuard,
       UserService
   ],

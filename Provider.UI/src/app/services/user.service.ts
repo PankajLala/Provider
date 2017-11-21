@@ -56,11 +56,11 @@ private encodeParams(params: any): string {
         return body;  
     }
   logout() {
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
     this.loggedIn = false;
   }
   isLoggedIn() {
-    this.loggedIn = localStorage.getItem('access_token') ? true : false;
+    this.loggedIn = sessionStorage.getItem('access_token') ? true : false;
     return this.loggedIn;
   }
 }

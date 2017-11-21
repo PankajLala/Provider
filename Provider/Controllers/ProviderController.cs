@@ -16,9 +16,9 @@ namespace Provider.Controllers
 
         [HttpGet]
         [Route("api/provider/getprovider/")]
-        public async Task<IEnumerable<ProviderModel>> GetProviders(string state = null, string max_discharges = null, string min_discharges = null,
+        public async Task<ProviderListInfo> GetProviders(string state = null, string max_discharges = null, string min_discharges = null,
     string max_average_covered_charges = null, string min_average_covered_charges = null, string min_average_medicare_payments = null,
-    string max_average_medicare_payments = null, string columns = null)
+    string max_average_medicare_payments = null, string columns = null, int pageIndex = 1, int pageSize = 10)
         {
             var providerRequest = new ProviderRequest
             {
@@ -29,7 +29,9 @@ namespace Provider.Controllers
                 max_average_medicare_payments = max_average_medicare_payments,
                 min_average_medicare_payments = min_average_medicare_payments,
                 state = state,
-                columns = columns
+                columns = columns,
+                pageIndex= pageIndex,
+                pageSize = pageSize
             };
 
             return await _providerService.GetProvider(providerRequest);
@@ -37,9 +39,9 @@ namespace Provider.Controllers
         }
 
         [Authorize]
-        public async Task<IEnumerable<ProviderModel>> Get(string state = null, string max_discharges = null, string min_discharges = null,
+        public async Task<ProviderListInfo> Get(string state = null, string max_discharges = null, string min_discharges = null,
             string max_average_covered_charges=null, string min_average_covered_charges = null, string min_average_medicare_payments = null,
-            string max_average_medicare_payments = null, string columns = null)
+            string max_average_medicare_payments = null, string columns = null, int pageIndex = 1, int pageSize = 10)
         {
             var providerRequest = new ProviderRequest
             {
@@ -50,7 +52,9 @@ namespace Provider.Controllers
                 max_average_medicare_payments = max_average_medicare_payments,
                 min_average_medicare_payments = min_average_medicare_payments,
                 state = state,
-                columns = columns
+                columns = columns,
+                pageIndex = pageIndex,
+                pageSize = pageSize
             };
             
             return await _providerService.GetProvider(providerRequest);

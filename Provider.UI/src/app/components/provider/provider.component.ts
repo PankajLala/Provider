@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
 
 import { Provider } from '../../model/provider';
-import { PagerService } from '../../services/pagerservice';
 import { ProviderService } from '../../services/provider.service';
 
 @Component({
@@ -12,12 +11,15 @@ import { ProviderService } from '../../services/provider.service';
    styleUrls: ['./provider.component.css']
 })
 export class ProviderComponent implements OnInit { 
-   optionList: boolean = false;
-   provider: Provider;
-   filteredListOfProvider: Provider[];
-   errorMessage: String;
-   dataAvailableAfterFilter;
-   submitted = false;
+    optionList: boolean = false;
+    provider: Provider;
+    filteredListOfProvider: Provider[];
+    form:any;
+    errorMessage: String;
+    dataAvailableAfterFilter;
+    submitted = false;
+pageIndex: number =1;
+totalCount:number;
    states = [ 
                 {name:'UT'},
                 {name:'NC'},
@@ -91,7 +93,7 @@ export class ProviderComponent implements OnInit {
   pager: any = {};
   pagedItems: any[];
 
-   constructor(private providerService: ProviderService, private pagerService: PagerService) { }
+   constructor(private providerService: ProviderService) { }
    
    ngOnInit(): void {
 	   this.optionList = false;
@@ -105,19 +107,21 @@ export class ProviderComponent implements OnInit {
             this.filteredListOfProvider = null;
             this.submitted = !this.submitted;
             this.providerService.getProviderAfterFilter(state, max_discharges,
-                        min_discharges, max_average_covered_charges,
-                        min_average_covered_charges, min_average_medicare_payments,
-                        max_average_medicare_payments, columns)
+            min_discharges, max_average_covered_charges,
+            min_average_covered_charges, min_average_medicare_payments,
+            max_average_medicare_payments, columns, this.pageIndex, 10)
 		  .subscribe(
             data => {  
-				    if(data.length > 0) {
-                        this.filteredListOfProvider = data; 
+				    if(data["providerModel"].length > 0) {
+                        this.filteredListOfProvider = data["providerModel"]; 
+                        this.totalCount = data["totalCount"];
                         this.errorMessage='';
                         this.submitted = !this.submitted;
-                        this.setPage(1);
+                        //this.setPage(1);
                                 } else {
                                 this.dataAvailableAfterFilter= false; 
                                  this.submitted = !this.submitted;
+                                 this.totalCount = 0;
                                 }	
 			        },
             error =>  {
@@ -128,19 +132,15 @@ export class ProviderComponent implements OnInit {
 		   );    
    }
 
-setPage(page: number) {
-        if (page < 1 || page > this.pager.totalPages) {
-            return;
-        }
- 
-        // get pager object from service
-        this.pager = this.pagerService.getPager(this.filteredListOfProvider.length, page);
- 
-        // get current page of items
-        this.pagedItems = this.filteredListOfProvider.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    }
+
 
    filterProvider(filterProviderForm: NgForm) {
+       this.pageIndex = 1;
+       this.prepareFilter(filterProviderForm)  ;
+   }
+
+   prepareFilter(filterProviderForm: NgForm){
+     this.form = filterProviderForm ;
       let state = filterProviderForm.controls['state'].value;
       let max_discharges = filterProviderForm.controls['max_discharges'].value;
       let min_discharges = filterProviderForm.controls['min_discharges'].value;
@@ -156,14 +156,29 @@ setPage(page: number) {
                         min_average_covered_charges, min_average_medicare_payments,
                         max_average_medicare_payments, columns);
    }
-
    checkItem(item: string){
-        return this.pagedItems[0][item]
+        return this.filteredListOfProvider[0][item]
    }
 
    toggleOption=()=>{
        this.optionList = !this.optionList;
    }
+
+   prev=()=>{
+       if(this.pageIndex>1){
+        this.pageIndex = this.pageIndex - 1;
+        this.prepareFilter(this.form);
+       }
+   }
+
+ next=()=>{
+     var count = this.pageIndex * 10;
+     if( count <= this.totalCount){
+       this.pageIndex = this.pageIndex+1;
+       this.prepareFilter(this.form);
+     }     
+   }
+
 
 }
     

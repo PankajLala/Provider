@@ -84,7 +84,7 @@
 			</tr>
 		  </thead>
 		  <tbody>
-			<tr *ngFor="let pv of pagedItems" >
+			<tr *ngFor="let pv of filteredListOfProvider" >
 				<td *ngIf="pv.DRDefinition">{{pv.DRDefinition}}</td> 
 				<td *ngIf="pv.ProviderId">{{pv.ProviderId}}</td> 
 				<td *ngIf="pv.ProviderName">{{pv.ProviderName}}</td> 
@@ -101,25 +101,15 @@
 		  </tbody>
 		</table>		
 		<div class="pagination">
-			<!-- pager -->
-            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-                <li [ngClass]="{disabled:pager.currentPage === 1}">
-                    <a (click)="setPage(1)">First</a>
-                </li>
-                <li [ngClass]="{disabled:pager.currentPage === 1}">
-                    <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-                </li>
-                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                    <a (click)="setPage(page)">{{page}}</a>
-                </li>
-                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                    <a (click)="setPage(pager.currentPage + 1)">Next</a>
-                </li>
-                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                    <a (click)="setPage(pager.totalPages)">Last</a>
-                </li>
-            </ul>
-		</div>	
+			<div> </div>
+			<div> </div>		
+		</div>
+		<div class="col-md-12"> 
+                    <div class="form-group">
+					<button class="btn pull-left"  (click)='prev()' >Previous</button>
+					<button class="btn pull-right" (click)='next()'>Next</button> 
+					</div>                 
+                </div>	
     </div>   
     <ng-template #loading>
 	    <div *ngIf="dataAvailableAfterFilter; else notAvailable">

@@ -6,23 +6,50 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\pankaj.lala\Source\Repos\Provider\Provider\bin\Release\PublishOutput</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\pankaj.lala\Source\Repos\Bain\Provider\Provider\bin\Release\PublishOutput</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Dapper.dll">
       <publishTime>07/22/2016 14:52:40</publishTime>
     </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>04/03/2015 17:07:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>04/03/2015 17:07:22</publishTime>
+    </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>08/15/2017 13:12:32</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Cors.dll">
+      <publishTime>04/05/2017 11:53:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>04/05/2017 11:53:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>04/05/2017 11:53:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>01/13/2014 16:11:10</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>01/13/2014 16:11:08</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>01/13/2014 16:11:12</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>08/03/2014 20:33:56</publishTime>
     </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>11/13/2012 12:19:34</publishTime>
+    </File>
     <File Include="bin/Provider.dll">
-      <publishTime>11/15/2017 15:37:13</publishTime>
+      <publishTime>11/21/2017 12:51:30</publishTime>
     </File>
     <File Include="bin/Provider.pdb">
-      <publishTime>11/15/2017 15:37:13</publishTime>
+      <publishTime>11/21/2017 12:51:30</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/13/2017 15:47:48</publishTime>
@@ -168,6 +195,18 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/roslyn/VBCSCompiler.exe.config">
       <publishTime>04/13/2017 15:47:48</publishTime>
     </File>
+    <File Include="bin/StructureMap.dll">
+      <publishTime>03/02/2016 10:21:56</publishTime>
+    </File>
+    <File Include="bin/StructureMap.Net4.dll">
+      <publishTime>03/02/2016 10:21:56</publishTime>
+    </File>
+    <File Include="bin/StructureMap.Net4.pdb">
+      <publishTime>03/02/2016 10:21:56</publishTime>
+    </File>
+    <File Include="bin/StructureMap.pdb">
+      <publishTime>03/02/2016 10:21:56</publishTime>
+    </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>01/28/2015 04:02:42</publishTime>
     </File>
@@ -180,14 +219,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/System.Web.Http.dll">
       <publishTime>01/28/2015 04:02:54</publishTime>
     </File>
+    <File Include="bin/System.Web.Http.Owin.dll">
+      <publishTime>01/28/2015 04:03:16</publishTime>
+    </File>
     <File Include="bin/System.Web.Http.WebHost.dll">
       <publishTime>01/28/2015 04:03:46</publishTime>
     </File>
+    <File Include="bin/WebApi.StructureMap.dll">
+      <publishTime>06/27/2017 18:37:50</publishTime>
+    </File>
+    <File Include="bin/WebApi.StructureMap.pdb">
+      <publishTime>06/27/2017 18:37:50</publishTime>
+    </File>
     <File Include="Global.asax">
-      <publishTime>11/10/2017 16:43:10</publishTime>
+      <publishTime>11/16/2017 11:10:18</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/15/2017 15:37:14</publishTime>
+      <publishTime>11/21/2017 12:29:08</publishTime>
     </File>
   </ItemGroup>
 </Project>

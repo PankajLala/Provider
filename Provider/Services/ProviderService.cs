@@ -7,7 +7,7 @@ namespace Provider.Services
 {
     public interface IProviderService
     {
-        Task<IEnumerable<ProviderModel>> GetProvider(ProviderRequest providerRequest);
+        Task<ProviderListInfo> GetProvider(ProviderRequest providerRequest);
     }
     public class ProviderService: IProviderService
     {
@@ -17,7 +17,7 @@ namespace Provider.Services
         {
             _providerRepository = providerRepository;
         }
-        public async Task<IEnumerable<ProviderModel>> GetProvider(ProviderRequest providerRequest)
+        public async Task<ProviderListInfo> GetProvider(ProviderRequest providerRequest)
         {
             return await _providerRepository.GetProvider(providerRequest);
         }

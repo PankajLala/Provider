@@ -39,12 +39,18 @@ namespace Provider.Services.Tests
 
                 }
             };
+
+            var providerListInfo = new ProviderListInfo
+            {
+                providerModel = providerModels,
+                totalCount = 1
+            };
             var mockRepo = new Mock<IProviderRepository>();
-            mockRepo.Setup(x => x.GetProvider(providerRequest)).ReturnsAsync(providerModels);
+            mockRepo.Setup(x => x.GetProvider(providerRequest)).ReturnsAsync(providerListInfo);
             ProviderService providerService = new ProviderService(mockRepo.Object);
             var result = await providerService.GetProvider(providerRequest);
 
-            Assert.AreEqual(((IList<ProviderModel>)result).Count, 1);
+            Assert.AreEqual(((IList<ProviderModel>)result.providerModel).Count, 1);
         }
 
         [TestMethod()]
@@ -77,12 +83,18 @@ namespace Provider.Services.Tests
 
                 }
             };
+
+            var providerListInfo = new ProviderListInfo
+            {
+                providerModel = providerModels,
+                totalCount = 1
+            };
             var mockRepo = new Mock<IProviderRepository>();
-            mockRepo.Setup(x => x.GetProvider(providerRequest)).ReturnsAsync(providerModels);
+            mockRepo.Setup(x => x.GetProvider(providerRequest)).ReturnsAsync(providerListInfo);
             ProviderService providerService = new ProviderService(mockRepo.Object);
             var result = await providerService.GetProvider(providerRequest);
 
-            Assert.AreEqual(((IList<ProviderModel>)result)[0].ProviderState, providerRequest.state);
+            Assert.AreEqual(((IList<ProviderModel>)result.providerModel)[0].ProviderState, providerRequest.state);
         }
 
 

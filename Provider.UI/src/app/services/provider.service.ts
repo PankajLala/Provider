@@ -15,11 +15,11 @@ export class ProviderService extends BaseService {
     getProviderAfterFilter(state: string, max_discharges: string,
                         min_discharges: string, max_average_covered_charges: string,
                         min_average_covered_charges: string, min_average_medicare_payments: string,
-                        max_average_medicare_payments: string, columns: string): Observable<Provider[]> {
+                        max_average_medicare_payments: string, columns: string, currentPage: Number, pageRecords: Number): Observable<Provider[]> {
         const url = this.getApiUrl() + this.path;
         let myHeaders = new Headers();
         
-        myHeaders.append('Authorization', `bearer ${localStorage.getItem('access_token')}`);   
+        myHeaders.append('Authorization', `bearer ${sessionStorage.getItem('access_token')}`);   
 		let myParams = new URLSearchParams();
             myParams.set('state', state);
             myParams.set('max_discharges', max_discharges);
@@ -29,6 +29,8 @@ export class ProviderService extends BaseService {
             myParams.set('min_average_medicare_payments', min_average_medicare_payments);
             myParams.set('max_average_medicare_payments', max_average_medicare_payments);		
             myParams.set('columns', columns);	
+            myParams.set('pageIndex', String(currentPage));
+            myParams.set('pageSize', String(pageRecords));
         let options = new RequestOptions({ headers: myHeaders, params: myParams });
         return this.http.get(url, options)
 		        .map(this.extractData)

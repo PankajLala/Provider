@@ -12,5 +12,7 @@ namespace Provider.Models
         public string min_average_medicare_payments;
         public string max_average_medicare_payments;
         public string columns;
+        public int pageIndex;
+        public int pageSize;
     }
 }

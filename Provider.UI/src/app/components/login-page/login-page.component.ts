@@ -16,7 +16,7 @@ export class LoginPageComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) {
     if (this.userService.isLoggedIn()) {
-      localStorage.removeItem('access_token');
+      sessionStorage.removeItem('access_token');
     }
   }
 
